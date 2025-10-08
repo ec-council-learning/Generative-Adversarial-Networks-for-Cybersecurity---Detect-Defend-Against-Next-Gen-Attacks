@@ -15,6 +15,8 @@
 threat_score = 95           # Integer: Used for counting and scoring.
 is_critical = True          # Boolean: Used for True/False logic.
 source_ip = "192.168.1.10"  # String: Used for text and identifiers.
+float_num = 3.14159         # Float: A number with a decimal point.
+c_num = 1 + 2j              # Complex Number: Numbers with a real and imaginary part.
 
 print(f"System IP: {source_ip}, Score: {threat_score}")
 print("-" * 30)
