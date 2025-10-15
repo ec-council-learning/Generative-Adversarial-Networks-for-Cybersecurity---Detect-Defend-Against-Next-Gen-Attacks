@@ -65,6 +65,15 @@ for event in log_events:
 print(f"Total suspicious events found: {suspicious_count}")
 print("-" * 30)
 
+# A while loop continues executing its block of code AS LONG AS its condition is True.
+while tasks_pending > 0:
+	print(f"	- Processing Task #{task_number}. Remaining: {tasks_pending - 1}")
+	# The condition variable must be changed *inside* the loop to eventually stop it.
+	tasks_pending -= 1 # Decrement the counter to move toward the stopping condition (tasks_pending > 0 is False)
+	task_number += 1
+
+print("All pending tasks processed.")
+
 # G. Defining a Reusable Function 
 # Functions group logic into one reusable block, making code clean and scalable.
 def check_authentication_status(username, attempts):
