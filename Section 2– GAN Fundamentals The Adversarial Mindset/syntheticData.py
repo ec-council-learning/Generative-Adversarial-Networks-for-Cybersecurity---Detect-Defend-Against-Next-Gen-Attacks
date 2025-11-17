@@ -252,6 +252,44 @@ def train_gan(dataset, epochs, generator, discriminator, generator_optimizer, di
             generate_and_save_images(generator, epoch + 1, seed)
 
     # Generate final image after training
+    # --- 8. Initialization and Execution ---
+
+if __name__ == '__main__':
+    # 1. Prepare Dataset
+    train_dataset = preprocess_data()
+    print("Dataset prepared and scaled to [-1, 1].")
+
+    # 2. Build Models
+    generator = build_generator()
+    discriminator = build_discriminator()
+    print("Generator and Discriminator models built.")
+
+    # Optional: Print model summaries to see architecture
+    # generator.summary()
+    # discriminator.summary()
+
+    # 3. Define Optimizers
+    # DCGAN typically uses separate, balanced optimizers for each network.
+    generator_optimizer = Adam(learning_rate=1e-4, beta_1=0.5)
+    discriminator_optimizer = Adam(learning_rate=1e-4, beta_1=0.5)
+    print("Optimizers (Adam with learning_rate=1e-4, beta_1=0.5) initialized.")
+
+    # Generate initial image before training starts
+    generate_and_save_images(generator, 0, seed)
+    print("Saved initial random noise image (Epoch 0).")
+
+    # 4. Start Training
+    print(f"\nStarting DCGAN training for {EPOCHS} epochs...")
+    train_gan(
+        train_dataset, 
+        EPOCHS, 
+        generator, 
+        discriminator, 
+        generator_optimizer, 
+        discriminator_optimizer
+    )
+    
+    print("\nTraining complete! Generated images are saved in 'gan_generated_images' directory.")
     generate_and_save_images(generator, epochs, seed)
 
 # --- Execute Script ---
