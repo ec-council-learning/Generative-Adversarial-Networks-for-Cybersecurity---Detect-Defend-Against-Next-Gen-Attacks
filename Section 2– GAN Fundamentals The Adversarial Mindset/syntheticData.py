@@ -292,4 +292,42 @@ if __name__ == '__main__':
     print("\nTraining complete! Generated images are saved in 'gan_generated_images' directory.")
     generate_and_save_images(generator, epochs, seed)
 
+# --- 9. Display Images in Google Colab ---
+
+from IPython.display import Image, display
+import glob
+import time
+
+print("\n--- Displaying Generated Images ---")
+time.sleep(2) # Wait a moment to ensure files are saved
+
+# Get a list of all saved image file paths, sorted chronologically
+image_files = sorted(glob.glob('gan_generated_images/*.png'))
+
+if image_files:
+    # 1. Display the FINAL generated image (from the last epoch)
+    final_image_path = image_files[-1]
+    print(f"\nFinal Generated Image (Epoch {EPOCHS}):")
+    # Display the final image using IPython.display.Image
+    display(Image(filename=final_image_path))
+
+    # Optional: Display the images from the start and middle epochs to show progress
+    print("\nTraining Progress Snapshots:")
+    # Display images from Epoch 10, Epoch 100, and the final one
+    
+    # Example to display every 5th saved image (adjust as needed)
+    for i, file_path in enumerate(image_files):
+        # We save one at epoch 0 and then every 10 epochs.
+        # This condition displays the 0th, 10th, 20th, ..., up to the end.
+        if i % 2 == 0: 
+             print(f"File: {file_path}")
+             display(Image(filename=file_path, width=200)) # Adjust width for better viewing
+             
+else:
+    print("No images found in the 'gan_generated_images' directory.")
+
+# Optional: You can also zip the folder to easily download all images
+# !zip -r gan_generated_images.zip gan_generated_images
+# print("\nSaved 'gan_generated_images.zip' for download.")
+
 # --- Execute Script ---
