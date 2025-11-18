@@ -282,7 +282,7 @@ if __name__ == '__main__':
     print(f"\nStarting DCGAN training for {EPOCHS} epochs...")
     train_gan(
         train_dataset, 
-        EPOCHS, 
+        epochs, 
         generator, 
         discriminator, 
         generator_optimizer, 
