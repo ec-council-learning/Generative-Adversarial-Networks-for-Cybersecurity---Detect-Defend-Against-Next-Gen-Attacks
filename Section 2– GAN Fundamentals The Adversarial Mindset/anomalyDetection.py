@@ -166,3 +166,57 @@ x_normal_subset = x_test_normal[random_indices]
 errors_subset, reconstructions_subset = calculate_errors(autoencoder, x_normal_subset)
 
 visualize_anomalies(x_normal_subset, reconstructions_subset, errors_subset, ANOMALY_THRESHOLD, n=5)
+# ==============================================================================
+# --- 5. Summary Plotting Code (New Section) ---
+# ==============================================================================
+
+# Prepare data for the box plot
+data_to_plot = [normal_train_errors, test_normal_errors, test_anomaly_errors]
+labels = ['Normal Training', 'Normal Test', 'Anomaly Test']
+
+plt.figure(figsize=(7, 6)) 
+box_plot = plt.boxplot(data_to_plot, 
+                       vert=True,
+                       patch_artist=True,
+                       labels=labels,
+                       showfliers=True)
+
+# Set colors for the boxes
+colors = ['lightblue', 'lightgreen', 'salmon']
+for patch, color in zip(box_plot['boxes'], colors):
+    patch.set_facecolor(color)
+
+# Plot the Anomaly Threshold line
+plt.axhline(
+    ANOMALY_THRESHOLD, 
+    color='red', 
+    linestyle='--', 
+    linewidth=2, 
+    label=f'Threshold ({ANOMALY_THRESHOLD:.4f})'
+)
+
+# Set labels and title
+plt.ylabel('Reconstruction Error (MSE)')
+plt.title('Anomaly Detection: Error Distribution vs. Threshold')
+plt.legend(loc='upper left')
+plt.grid(axis='y', linestyle='--')
+
+# Adjust y-limit to focus on the separation
+y_max = max(np.max(test_anomaly_errors), ANOMALY_THRESHOLD) * 1.1
+plt.ylim(0, y_max)
+
+# Save the plot
+plt.savefig('anomaly_summary_boxplot.png')
+print("\n✅ Summary plot 'anomaly_summary_boxplot.png' saved.")
+
+
+# --- Original Visualization (Commented out for clean execution) ---
+# The original visualization functions are kept, but the plt.show()
+# calls are suppressed to prevent interactive window issues.
+
+# def visualize_anomalies(...):
+#     # ... (function body) ...
+#     # plt.show() # Suppressed
+
+# visualize_anomalies(...)
+# visualize_anomalies(...)
