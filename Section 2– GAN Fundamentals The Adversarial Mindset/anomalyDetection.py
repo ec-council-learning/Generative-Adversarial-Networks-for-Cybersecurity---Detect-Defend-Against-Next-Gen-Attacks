@@ -167,7 +167,7 @@ errors_subset, reconstructions_subset = calculate_errors(autoencoder, x_normal_s
 
 visualize_anomalies(x_normal_subset, reconstructions_subset, errors_subset, ANOMALY_THRESHOLD, n=5)
 # ==============================================================================
-# --- 5. Summary Plotting Code (New Section) ---
+# --- 5. Summary Plotting Code ---
 # ==============================================================================
 
 # Prepare data for the box plot
